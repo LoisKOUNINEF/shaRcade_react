@@ -13,7 +13,7 @@ const EditorGameIndex = () => {
     const user = Cookies.get("fulluser") ? JSON.parse(Cookies.get("fulluser")) : "";
 
     useEffect(() => {
-        fetch(API_URL + 'games', {
+        fetch(`${API_URL}games`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ const EditorGameIndex = () => {
     }, [gamesLoading]);
 
     useEffect(() => {
-        fetch(API_URL + 'api_calls', {
+        fetch(`${API_URL}api_calls`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',

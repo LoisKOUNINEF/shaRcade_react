@@ -21,7 +21,7 @@ const GamesIndex = () => {
     const user = Cookies.get("fulluser") ? JSON.parse(Cookies.get("fulluser")) : "";
 
     useEffect(() => {
-        fetch(API_URL + 'games', {
+        fetch(`${API_URL}games`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const GamesIndex = () => {
     }, [gamesLoading]);
 
     useEffect(() => {
-        fetch(API_URL + 'favorites', {
+        fetch(`${API_URL}favorites`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ const GamesIndex = () => {
     }, [favoritesLoading]);
 
     useEffect(() => {
-        fetch(API_URL + 'feedbacks', {
+        fetch(`${API_URL}feedbacks`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -106,11 +106,15 @@ const GamesIndex = () => {
 
         let scores = scoresList.filter(score => score.game_id === game.id);
         let lastScore = scores.at(-1);
+        let sortedScores = scores.sort(function(a,b) {
+            return a.score - b.score;
+        });
+        let fiveBest = sortedScores.slice(-5);
 
         let feedbacksCount = feedbacks.filter(feedback => feedback.game_id === game.id);
         let feedbacksRatings = 0;
         feedbacksCount.map(feedback => {
-            feedbacksRatings += feedback.rating;
+            return feedbacksRatings += feedback.rating;
         });
         let averageRating = Math.round(feedbacksRatings / feedbacksCount.length);
         let userFeedback = feedbacksCount.find(feedback => feedback.user_id === user.id);
