@@ -102,11 +102,9 @@ const GamesIndex = () => {
 
     const gameCards = gameList.map(game => {
 
-        let isFavorite = false;
         let favoritesCount = favorites.filter(favorite => favorite.game_id === game.id)
-        if (favoritesCount.user_id === user.id) {
-            isFavorite = true;
-        }
+        let userFavorite = favoritesCount.find(favorite => favorite.user_id === user.id)
+        let isFavorite = userFavorite ? true : false ;
 
         let feedbacksCount = 0;
         let feedbacksRatings = 0;
