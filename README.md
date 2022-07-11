@@ -1,4 +1,4 @@
-## [Site en production](https://sharcade-front.herokuapp.com/)
+## [Site en production](https://sharcade.herokuapp.com/)
 
 ### Lien vers le repo du [backend](https://github.com/LoisKOUNINEF/shaRcade_rails)
 
