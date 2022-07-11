@@ -72,12 +72,12 @@ function GameCard(props) {
     <div className="game-card modal">
       <img className="modal-img" src={imageLink} alt={"screenshot of "+props.game.game_title} alt={"screenshot of "+props.game.game_title}/>
       <div className="modal-favorite">{gameFavoriteIcon(props.favorite)}</div>
-      <div className="modal-feedback">{gameFeedbackIcons(props.evaluation)}</div>
+      <div className="modal-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
       <div className="modal-body">
         <h3><a href={props.game.game_url} target="_blank" rel="noreferrer">{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</a></h3>
         <h6 className="game-type" title={props.gametype.game_type_descr}>{props.gametype.game_type_title}</h6>
         <p>{props.game.game_descr}<span className="show-button" onClick={toggleDetails}>{linkName}</span></p>
-        <p>Last Score for this game : <strong>{props.lastscore}</strong></p>
+        <p>Last Score for this game : <strong>{props.lastscore.score}</strong></p>
       </div>
       <div className="modal-footer game-card-footer">
         <div className="game-fan">{gameFansCounter(props.fans)}</div>
@@ -92,7 +92,7 @@ function GameCard(props) {
       <div className="game-card-header">
         <img className="game-card-img" src={imageLink} alt={"screenshot of "+props.game.game_title}/>
         <div className="game-favorite">{gameFavoriteIcon(props.favorite)}</div>
-        <div className="game-feedback">{gameFeedbackIcons(props.evaluation)}</div>
+        <div className="game-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
       </div>
       <div className="game-card-body">
         <h3>{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</h3>

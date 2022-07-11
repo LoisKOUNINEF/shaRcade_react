@@ -102,35 +102,30 @@ const GamesIndex = () => {
 
     const gameCards = gameList.map(game => {
 
-        let userRating = 0;
-        let feedbacksRatings = 0;
-        let feedbacksCount = feedbacks.filter(feedback => feedback.game_id === game.id);
+        let gameType = gameTypesList.find(gametype => gametype.id === game.game_type_id);
 
+        let scores = scoresList.filter(score => score.game_id === game.id);
+        let lastScore = scores.at(-1);
+
+        let feedbacksCount = feedbacks.filter(feedback => feedback.game_id === game.id);
+        let feedbacksRatings = 0;
         feedbacksCount.map(feedback => {
             feedbacksRatings += feedback.rating;
-            if(feedback.user_id === user.id) {
-                userRating = feedback.rating;
-            }
-            return userRating;
         });
-
         let averageRating = Math.round(feedbacksRatings / feedbacksCount.length);
+        let userFeedback = feedbacksCount.find(feedback => feedback.user_id === user.id);
+        let userEval = userFeedback ? userFeedback : 0;
 
-        let favoritesCount = favorites.filter(favorite => favorite.game_id === game.id)
-        let userFavorite = favoritesCount.find(favorite => favorite.user_id === user.id)
-        let isFavorite = userFavorite ? true : false ;
+        let favoritesCount = favorites.filter(favorite => favorite.game_id === game.id);
+        let userFavorite = favoritesCount.find(favorite => favorite.user_id === user.id);
+        let isFavorite = userFavorite ? true : false;
 
-        let gameType = gameTypesList.find(gametype => gametype.id === game.game_type_id)
-
-        let scores = scoresList.filter(score => score.game_id === game.id)
-        let lastScore = scores.at(-1).score;
-
-        return <GameCard game={game} fans={favoritesCount.length} feedbacks={averageRating} favorite={isFavorite} evaluation={userRating} gametype={gameType} lastscore={lastScore} key={game.id}/>
+        return <GameCard game={game} fans={favoritesCount.length} feedbacks={averageRating} favorite={isFavorite} evaluation={userEval} gametype={gameType} lastscore={lastScore} key={game.id}/>
     })
 
     return (
         <div className="game-list">
-        {gamesLoading || gameTypesLoading || scoresLoading || favoritesLoading || feedbacksLoading ? <p>"-- Games info loading --"</p> : gameCards}
+        {gamesLoading || gameTypesLoading || scoresLoading || favoritesLoading || feedbacksLoading ? <h2>"-- Games info loading --"</h2> : gameCards}
         </div>
         )
 }
