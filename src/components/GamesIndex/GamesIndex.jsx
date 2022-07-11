@@ -100,7 +100,6 @@ const GamesIndex = () => {
         .catch((error) => console.log(error));
     },[scoresLoading]);
 
-
     const gameCards = gameList.map(game => {
 
         let favoritesCount = 0;
@@ -131,13 +130,7 @@ const GamesIndex = () => {
             return userRating;
         })
 
-        let gameType;
-        gameTypesList.map(gametype => {
-            if (gametype.id === game.game_type_id) {
-                gameType = gametype;
-            }
-            return gameType;
-        })
+        let gameType = gameTypesList.find(gametype => gametype.id === game.game_type_id)
 
         let scores = [];
         let lastScore;
