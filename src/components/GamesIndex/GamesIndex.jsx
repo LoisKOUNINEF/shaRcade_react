@@ -102,17 +102,11 @@ const GamesIndex = () => {
 
     const gameCards = gameList.map(game => {
 
-        let favoritesCount = 0;
         let isFavorite = false;
-        favorites.map(favorite => {
-            if (favorite.game_id === game.id) {
-                favoritesCount++;
-                if (favorite.user_id === user.id) {
-                    isFavorite = true;
-                }
-            }
-            return isFavorite;
-        })
+        let favoritesCount = favorites.filter(favorite => favorite.game_id === game.id)
+        if (favoritesCount.user_id === user.id) {
+            isFavorite = true;
+        }
 
         let feedbacksCount = 0;
         let feedbacksRatings = 0;
@@ -132,17 +126,10 @@ const GamesIndex = () => {
 
         let gameType = gameTypesList.find(gametype => gametype.id === game.game_type_id)
 
-        let scores = [];
-        let lastScore;
-        scoresList.map(score => {
-            if (score.game_id === game.id) {
-                scores.push(score.score);
-                lastScore = [...scores].at(-1);
-            }
-            return lastScore;
-        })
+        let scores = scoresList.filter(score => score.game_id === game.id)
+        let lastScore = scores.at(-1).score;
 
-        return <GameCard game={game} fans={favoritesCount} feedbacks={averageRating} favorite={isFavorite} evaluation={userRating} gametype={gameType} lastscore={lastScore} key={game.id}/>
+        return <GameCard game={game} fans={favoritesCount.length} feedbacks={averageRating} favorite={isFavorite} evaluation={userRating} gametype={gameType} lastscore={lastScore} key={game.id}/>
     })
 
     return (
