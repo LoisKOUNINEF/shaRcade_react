@@ -132,7 +132,7 @@ const GamesIndex = () => {
         let isFavorite = userFavorite ? true : false;
 
         return <GameCard game={game} fans={favoritesCount.length} feedbacks={averageRating} favorite={isFavorite} evaluation={userEval} gametype={gameType} lastscore={lastScore} fivebest={fiveBest} userscore={lastUserScore} bestuserscore={bestUserScore} key={game.id}/>
-    })
+    }).reverse();
 
     return (
         <div className="game-list">
