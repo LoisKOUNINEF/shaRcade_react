@@ -106,17 +106,17 @@ const GamesIndex = () => {
 
         let scores = scoresList.filter(score => score.game_id === game.id);
         let lastScore = scores.at(-1) ? scores.at(-1) : 0;
+        let sortedScores = scores.sort(function(a,b) {
+            return a.score - b.score;
+        });
+        let bestScore = sortedScores.at(-1);
+        let fiveBest = sortedScores.slice(-5).reverse().map(i => {return i.score}).join(' ');
         let userScores = scores.filter(score => score.user_id === user.id);
         let lastUserScore = userScores.at(-1) ? userScores.at(-1) : 0;
         let sortedUserScores = userScores.sort(function(a,b) {
             return a.score - b.score;
         });
         let bestUserScore = sortedUserScores.at(-1) ? sortedUserScores.at(-1) : 0;
-        let sortedScores = scores.sort(function(a,b) {
-            return a.score - b.score;
-        });
-        let bestScore = sortedScores.at(-1);
-        let fiveBest = sortedScores.slice(-5).reverse().map(i => {return i.score}).join(' ')
 
         let feedbacksCount = feedbacks.filter(feedback => feedback.game_id === game.id);
         let feedbacksRatings = 0;
