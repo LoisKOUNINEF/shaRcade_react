@@ -77,7 +77,10 @@ function GameCard(props) {
         <h3><a href={props.game.game_url} target="_blank" rel="noreferrer">{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</a></h3>
         <h6 className="game-type" title={props.gametype.game_type_descr}>{props.gametype.game_type_title}</h6>
         <p>{props.game.game_descr}<span className="show-button" onClick={toggleDetails}>{linkName}</span></p>
-        <p>Last Score for this game : <strong>{props.lastscore.score}</strong></p>
+        <p>Last Score : <strong>{props.lastscore.score}</strong></p>
+        <p>Best Scores : {props.fivebest}</p>
+        <p>Your Last Score : {props.userscore.score}</p>
+        <p> Your Best Score : {props.bestuserscore.score}</p>
       </div>
       <div className="modal-footer game-card-footer">
         <div className="game-fan">{gameFansCounter(props.fans)}</div>

@@ -105,13 +105,18 @@ const GamesIndex = () => {
         let gameType = gameTypesList.find(gametype => gametype.id === game.game_type_id);
 
         let scores = scoresList.filter(score => score.game_id === game.id);
-        let lastScore = scores.at(-1);
+        let lastScore = scores.at(-1) ? scores.at(-1) : 0;
         let userScores = scores.filter(score => score.user_id === user.id);
-        let lastUserScore = userScores.at(-1);
+        let lastUserScore = userScores.at(-1) ? userScores.at(-1) : 0;
+        let sortedUserScores = userScores.sort(function(a,b) {
+            return a.score - b.score;
+        });
+        let bestUserScore = sortedUserScores.at(-1) ? sortedUserScores.at(-1) : 0;
         let sortedScores = scores.sort(function(a,b) {
             return a.score - b.score;
         });
-        let fiveBest = sortedScores.slice(-5);
+        let bestScore = sortedScores.at(-1);
+        let fiveBest = sortedScores.slice(-5).reverse().map(i => {return i.score}).join(' ')
 
         let feedbacksCount = feedbacks.filter(feedback => feedback.game_id === game.id);
         let feedbacksRatings = 0;
@@ -126,7 +131,7 @@ const GamesIndex = () => {
         let userFavorite = favoritesCount.find(favorite => favorite.user_id === user.id);
         let isFavorite = userFavorite ? true : false;
 
-        return <GameCard game={game} fans={favoritesCount.length} feedbacks={averageRating} favorite={isFavorite} evaluation={userEval} gametype={gameType} lastscore={lastScore} key={game.id}/>
+        return <GameCard game={game} fans={favoritesCount.length} feedbacks={averageRating} favorite={isFavorite} evaluation={userEval} gametype={gameType} lastscore={lastScore} fivebest={fiveBest} userscore={lastUserScore} bestuserscore={bestUserScore} key={game.id}/>
     })
 
     return (
