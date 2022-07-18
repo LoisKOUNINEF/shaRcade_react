@@ -106,6 +106,8 @@ const GamesIndex = () => {
 
         let scores = scoresList.filter(score => score.game_id === game.id);
         let lastScore = scores.at(-1);
+        let userScores = scores.filter(score => score.user_id === user.id);
+        let lastUserScore = userScores.at(-1);
         let sortedScores = scores.sort(function(a,b) {
             return a.score - b.score;
         });
