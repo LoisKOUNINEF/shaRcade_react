@@ -75,10 +75,11 @@ function GameCard(props) {
       <div className="modal-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
       <div className="modal-body">
         <h3><a href={props.game.game_url} target="_blank" rel="noreferrer">{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</a></h3>
+        <h5>From <strong>{props.gameowner.nickname}</strong></h5>
         <h6 className="game-type" title={props.gametype.game_type_descr}>{props.gametype.game_type_title}</h6>
         <p>{props.game.game_descr}<span className="show-button" onClick={toggleDetails}>{linkName}</span></p>
-        <p> Best Score : {props.bestscore.score} from {props.bestuser.nickname}</p>
-        <p>Last Score : <strong>{props.lastscore.score}</strong> from {props.lastuser.nickname}</p>
+        <p>Best Score : <strong>{props.bestuser.nickname}</strong> {props.bestscore.score}</p>
+        <p>Last Score : <strong>{props.lastuser.nickname}</strong> {props.lastscore.score}</p>
         <p>Best Scores : {props.fivebest}</p>
         <p>Your Last Score : {props.userscore.score}</p>
         <p> Your Best Score : {props.bestuserscore.score}</p>

@@ -13,6 +13,9 @@ const GamesIndex = () => {
     const [scoresList, setScoresList] = useState([]);
     const [usersList, setUsersList] = useState([]);
 
+    const [keysList, setKeysList] = useState([]);
+    const [keysLoading, setKeysLoading] = useState(true);
+
     const [gamesLoading, setGamesLoading] = useState(true);
     const [gameTypesLoading, setGameTypesLoading] = useState(true);
     const [scoresLoading, setScoresLoading] = useState(true);
@@ -118,10 +121,28 @@ const GamesIndex = () => {
         .catch((error) => console.log(error));
     }, [usersLoading]);
 
+    useEffect(() => {
+        fetch(`${API_URL}api_calls`, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            setKeysList(response);
+            setKeysLoading(response.length <= 0);
+        })
+        .catch((error) => console.log(error));
+    }, [keysLoading]);
+
 
     const gameCards = gameList.map(game => {
 
         let gameType = gameTypesList.find(gametype => gametype.id === game.game_type_id);
+        let key = keysList.find(key => key.game_id === game.id)
+        let gameOwner = usersList.find(user => user.id === key.user_id)
 
         let scores = scoresList.filter(score => score.game_id === game.id);
         let lastScore = scores.at(-1) ? scores.at(-1) : 0;
@@ -152,7 +173,23 @@ const GamesIndex = () => {
         let userFavorite = favoritesCount.find(favorite => favorite.user_id === user.id);
         let isFavorite = userFavorite ? true : false;
 
-        return <GameCard game={game} fans={favoritesCount.length} feedbacks={averageRating} favorite={isFavorite} evaluation={userEval} gametype={gameType} lastscore={lastScore} lastuser={lastUser} fivebest={fiveBest} bestscore={bestScore} bestuser={bestUser} userscore={lastUserScore} bestuserscore={bestUserScore} key={game.id}/>
+        return <GameCard
+        game={game}
+        gameowner={gameOwner}
+        fans={favoritesCount.length}
+        feedbacks={averageRating}
+        favorite={isFavorite}
+        evaluation={userEval}
+        gametype={gameType}
+        lastscore={lastScore}
+        lastuser={lastUser}
+        fivebest={fiveBest}
+        bestscore={bestScore}
+        bestuser={bestUser}
+        userscore={lastUserScore}
+        bestuserscore={bestUserScore}
+        key={game.id}
+        />
     }).reverse();
 
     return (
