@@ -69,41 +69,42 @@ const NewGame = () => {
 
     return (
       <div className="new-game-form-container">
-      <Form className="form" onSubmit={submitData}>
-      <Form.Group className="mb-3" controlId="formSubmitGame">
-      <Form.Label className="label">Game name</Form.Label>
-      <Form.Control className="field" type="input" placeholder="Enter a game name" onChange={(e) => setGameTitle(e.target.value)} />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formSubmitGame">
-      <Form.Label className="label">Game link</Form.Label>
-      <Form.Control className="field" type="input" placeholder="Set link for your game" onChange={(e) => setGameUrl(e.target.value)} />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formSubmitGame">
-      <Form.Label className="label">Game description</Form.Label>
-      <Form.Control className="field" type="textarea" placeholder="Describe your game" onChange={(e) => setGameDescription(e.target.value)} />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formSubmitGame">
-      <Form.Label className="label">Game type</Form.Label>
-      <select onChange={(e) => setGameType(e.target.value)}>
-      {gameTypesList.map((gametype) => (
-        <option value={gametype.id}>{gametype.game_type_title}</option>
-        ))}
-      </select>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formSubmitGame">
-      <Form.Label className="label">Game image URL</Form.Label>
-      <Form.Control className="field" type="input" placeholder="Set an image for your game" onChange={(e) => setImageUrl(e.target.value)} />
-      </Form.Group>
-{/*       <Form.Group className="mb-3" controlId="formSubmitGame">
+        <Form className="form" onSubmit={submitData}>
+          <Form.Group className="mb-3" controlId="formSubmitGame">
+            <Form.Label className="label">Game name</Form.Label>
+            <Form.Control className="field" type="input" placeholder="Enter a game name" onChange={(e) => setGameTitle(e.target.value)} />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formSubmitGame">
+            <Form.Label className="label">Game link</Form.Label>
+            <Form.Control className="field" type="input" placeholder="Set link for your game" onChange={(e) => setGameUrl(e.target.value)} />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formSubmitGame">
+            <Form.Label className="label">Game description</Form.Label>
+            <Form.Control className="field" type="textarea" placeholder="Describe your game" onChange={(e) => setGameDescription(e.target.value)} />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formSubmitGame">
+            <Form.Label className="label">Game type</Form.Label>
+            <select onChange={(e) => setGameType(e.target.value)}>
+              {gameTypesList.map((gametype) => (
+              <option value={gametype.id}>{gametype.game_type_title}</option>
+              ))}
+            </select>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formSubmitGame">
+            <Form.Label className="label">Game image URL</Form.Label>
+            <Form.Control className="field" type="input" placeholder="Set an image for your game" onChange={(e) => setImageUrl(e.target.value)} />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formSubmitGame">
             <Form.Label className="label">Playable on mobile ?</Form.Label>
-            <Form.Control className="field" type="checkbox" placeholder="Is your game playable on mobile ?" onChange={(e) => setMobileReady(!mobileReady)} />
-          </Form.Group>*/}
-          <Button className="submit-btn" variant="primary" type="submit">
-          Submit
-          </Button>
-          </Form>
-          </div>
-          );
+            <select onChange={(e) => setMobileReady(e.target.value)}>
+              <option value="false">No, who cares about mobile devices anyway?</option>
+              <option value="true">Of course !</option>
+            </select>
+          </Form.Group>
+          <Button className="submit-btn" variant="primary" type="submit">Submit</Button>
+        </Form>
+      </div>
+      );
   }
 
   export default NewGame
