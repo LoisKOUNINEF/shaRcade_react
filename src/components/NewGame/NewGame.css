@@ -31,16 +31,31 @@
   color: var(--sc-txt-color);
 }
 
-.submit-btn, .mobile-btn {
+.submit-btn{
   background-color: var(--sc-txt-color);
   color: var(--sc-bg-color);
   border: 1px solid var(--sc-bg-color);
+  padding: var(--sc-margin);
   border-radius: var(--sc-radius);
   margin-bottom: var(--sc-margin);
 }
 
-.submit-btn:hover, .mobile-btn:hover, .submit-btn:active, .mobile-btn:active{
+.mobile-btn {
+  background-color: var(--sc-bg-color);
+  color: var(--sc-txt-color);
+  border: 1px solid var(--sc-txt-color);
+  border-radius: var(--sc-radius);
+  margin-bottom: var(--sc-margin);
+}
+
+.submit-btn:hover{
   background-color: var(--sc-bg-color) !important;
   border: 1px solid var(--sc-txt-color);
   color: var(--sc-txt-color);
+}
+
+.mobile-btn:hover{
+  background-color: var(--sc-txt-color) !important;
+  border: 1px solid var(--sc-bg-color);
+  color: var(--sc-bg-color);
 }

@@ -86,7 +86,7 @@ const NewGame = () => {
             <Form.Label className="label">Game type</Form.Label>
             <select onChange={(e) => setGameType(e.target.value)}>
               {gameTypesList.map((gametype) => (
-              <option value={gametype.id}>{gametype.game_type_title}</option>
+              <option value={gametype.id} title={gametype.game_type_descr}>{gametype.game_type_title}</option>
               ))}
             </select>
           </Form.Group>
@@ -98,7 +98,7 @@ const NewGame = () => {
             <Form.Label className="label">{mobileReady ? "Your game can be played on touch devices." : "Your game can be played on a computer only."}</Form.Label>
             <div>{mobileReady ? <p className="mobile-btn">Computer Only</p> : <p className="mobile-btn">Mobile Ready</p>}</div>
           </Form.Group>
-          <Button className="submit-btn" variant="primary" type="submit">Submit</Button>
+          <p className="submit-btn" variant="primary" type="submit">Submit</p>
         </Form>
       </div>
       );
