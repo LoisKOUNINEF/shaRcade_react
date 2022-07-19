@@ -44,23 +44,22 @@ const EditorGameIndex = () => {
         .catch((error) => console.log(error));
     }, [keysLoading]);
 
-        const editorGameCards = gameList.map(game => {
-            let apikey = "";
-            keysList.map(key => {
-                if (key.game_id === game.id && key.user_id === user.id) {
-                    apikey = key;
-                }
-                return apikey;
-            })
-
-        return <EditorGameCard game={game} apikey={apikey} key={game.id}/>
+    const editorGameCards = gameList.map(game => {
+        const findUserKeys = keysList.find(key => key.game_id === game.id && key.user_id === user.id)
+        let apikey = findUserKeys ? findUserKeys : "";
+        if (apikey) {
+            return <EditorGameCard game={game} apikey={apikey} key={game.id}/>
+        }
+        else {
+            return
+        }
     })
 
     return (
         <div className="editor-list">
         {gamesLoading || keysLoading ? <p>"-- Games info loading --"</p> : editorGameCards}
-            </div>
-            )
+        </div>
+        )
 }
 
 export default EditorGameIndex;
