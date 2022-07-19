@@ -11,12 +11,14 @@ const GamesIndex = () => {
     const [feedbacks, setFeedbacks] = useState([]);
     const [gameTypesList, setGameTypesList] = useState([]);
     const [scoresList, setScoresList] = useState([]);
+    const [usersList, setUsersList] = useState([]);
 
     const [gamesLoading, setGamesLoading] = useState(true);
     const [gameTypesLoading, setGameTypesLoading] = useState(true);
     const [scoresLoading, setScoresLoading] = useState(true);
     const [favoritesLoading, setFavoritesLoading] = useState(true);
     const [feedbacksLoading, setFeedbacksLoading] = useState(true);
+    const [usersLoading, setUsersLoading] = useState(true);
 
     const user = Cookies.get("fulluser") ? JSON.parse(Cookies.get("fulluser")) : "";
 
@@ -100,16 +102,35 @@ const GamesIndex = () => {
         .catch((error) => console.log(error));
     },[scoresLoading]);
 
+    useEffect(() => {
+        fetch(`${API_URL}users/actions`, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            setUsersList(response);
+            setUsersLoading(response.length <= 0);
+        })
+        .catch((error) => console.log(error));
+    }, [usersLoading]);
+
+
     const gameCards = gameList.map(game => {
 
         let gameType = gameTypesList.find(gametype => gametype.id === game.game_type_id);
 
         let scores = scoresList.filter(score => score.game_id === game.id);
         let lastScore = scores.at(-1) ? scores.at(-1) : 0;
+        let lastUser = lastScore ? usersList.find(user => user.id === lastScore.user_id) : 0;
         let sortedScores = scores.sort(function(a,b) {
             return a.score - b.score;
         });
-        // let bestScore = sortedScores.at(-1) ? sortedScores.at(-1) : 0;
+        let bestScore = sortedScores.at(-1) ? sortedScores.at(-1) : 0;
+        let bestUser = bestScore ? usersList.find(user => user.id === bestScore.user_id) : 0;
         let fiveBest = sortedScores.slice(-5).reverse().map(i => {return i.score}).join(' ');
         let userScores = scores.filter(score => score.user_id === user.id);
         let lastUserScore = userScores.at(-1) ? userScores.at(-1) : 0;
@@ -131,7 +152,7 @@ const GamesIndex = () => {
         let userFavorite = favoritesCount.find(favorite => favorite.user_id === user.id);
         let isFavorite = userFavorite ? true : false;
 
-        return <GameCard game={game} fans={favoritesCount.length} feedbacks={averageRating} favorite={isFavorite} evaluation={userEval} gametype={gameType} lastscore={lastScore} fivebest={fiveBest} userscore={lastUserScore} bestuserscore={bestUserScore} key={game.id}/>
+        return <GameCard game={game} fans={favoritesCount.length} feedbacks={averageRating} favorite={isFavorite} evaluation={userEval} gametype={gameType} lastscore={lastScore} lastuser={lastUser} fivebest={fiveBest} bestscore={bestScore} bestuser={bestUser} userscore={lastUserScore} bestuserscore={bestUserScore} key={game.id}/>
     }).reverse();
 
     return (
