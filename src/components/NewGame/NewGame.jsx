@@ -97,8 +97,8 @@ const NewGame = () => {
           <Form.Group className="mb-3" controlId="formSubmitGame">
             <Form.Label className="label">Playable on mobile ?</Form.Label>
             <select onChange={(e) => setMobileReady(e.target.value)}>
-              <option value="false">No, who cares about mobile devices anyway?</option>
-              <option value="true">Of course !</option>
+              <option value={false}>No, who cares about mobile devices anyway?</option>
+              <option value={true}>Of course !</option>
             </select>
           </Form.Group>
           <Button className="submit-btn" variant="primary" type="submit">Submit</Button>
