@@ -13,7 +13,7 @@ const NewGame = () => {
   const [gameDescription, setGameDescription] = useState();
   const [gameTypesList, setGameTypesList] = useState([]);
   const [gameTypesLoading, setGameTypesLoading] = useState(true);
-  const [gameType, setGameType] = useState();
+  const [gameType, setGameType] = useState(1);
   const [imageUrl, setImageUrl] = useState();
   const [mobileReady, setMobileReady] = useState(false);
   const [myAuthorization, setAuthorization] = useAtom(authorizationAtom);
@@ -46,9 +46,9 @@ const NewGame = () => {
 
       const data = {
         "game": {
-          "game_title": gameTitle,
-          "game_url": gameUrl,
-          "game_descr": gameDescription,
+          "game_title": gameTitle ? gameTitle : "Unknown",
+          "game_url": gameUrl ? gameUrl : "Unknown",
+          "game_descr": gameDescription ? gameDescription : "Unknown",
           "game_type_id": gameType,
           "mobile_ready": mobileReady,
           "image_url": imageUrl
@@ -94,12 +94,9 @@ const NewGame = () => {
             <Form.Label className="label">Game image URL</Form.Label>
             <Form.Control className="field" type="input" placeholder="Set an image for your game" onChange={(e) => setImageUrl(e.target.value)} />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formSubmitGame">
-            <Form.Label className="label">Playable on mobile ?</Form.Label>
-            <select onChange={(e) => setMobileReady(e.target.value)}>
-              <option value={false}>No, who cares about mobile devices anyway?</option>
-              <option value={true}>Of course !</option>
-            </select>
+          <Form.Group className="mb-3" controlId="formSubmitGame" onClick={(e) => setMobileReady(!mobileReady)}>
+            <Form.Label className="label">{mobileReady ? "Your game can be played on touch devices." : "Your game can be played on a computer only."}</Form.Label>
+            <div>{mobileReady ? <p className="mobile-btn">Computer Only</p> : <p className="mobile-btn">Mobile Ready</p>}</div>
           </Form.Group>
           <Button className="submit-btn" variant="primary" type="submit">Submit</Button>
         </Form>
