@@ -194,7 +194,7 @@ const GamesIndex = () => {
 
     return (
         <div className="game-list">
-        {gamesLoading || gameTypesLoading || scoresLoading || favoritesLoading || feedbacksLoading ? <h2>"-- Games info loading --"</h2> : gameCards}
+        {gamesLoading || gameTypesLoading || scoresLoading || favoritesLoading || feedbacksLoading || usersLoading ? <h2>"-- Games info loading --"</h2> : gameCards}
         </div>
         )
 }
