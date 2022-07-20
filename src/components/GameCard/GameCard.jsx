@@ -13,6 +13,7 @@ function GameCard(props) {
   const [myAuthorization, setAuthorization] = useAtom(authorizationAtom);
   const [isFavorite, setIsFavorite] = useState(props.favorite);
   const user = Cookies.get("fulluser") ? JSON.parse(Cookies.get("fulluser")) : "";
+  const hearthTitle = isFavorite ? "" : "Add this game to your favorites !"
 
   const submitData = () => {
 
@@ -100,7 +101,7 @@ function GameCard(props) {
   <div className="modal-bg" onClick={toggleDetails}>
   <div className="game-card modal">
   <img className="modal-img" src={imageLink} alt={"screenshot of "+props.game.game_title} alt={"screenshot of "+props.game.game_title}/>
-  <div className="modal-favorite" onClick={(e) => {setIsFavorite(!isFavorite); submitData();}}>{gameFavoriteIcon()}</div>
+  <div className="modal-favorite" onClick={(e) => {setIsFavorite(!isFavorite); submitData();}} title={hearthTitle}>{gameFavoriteIcon()}</div>
   <div className="modal-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
   <div className="modal-body">
   <h3><a href={props.game.game_url} target="_blank" rel="noreferrer">{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</a></h3>
