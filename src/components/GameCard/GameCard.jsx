@@ -13,7 +13,6 @@ function GameCard(props) {
   const [myAuthorization, setAuthorization] = useAtom(authorizationAtom);
   const [isFavorite, setIsFavorite] = useState(props.favorite);
   const user = Cookies.get("fulluser") ? JSON.parse(Cookies.get("fulluser")) : "";
-  const hearthTitle = isFavorite ? "" : "Add this game to your favorites !"
 
   const submitData = () => {
 
@@ -86,6 +85,8 @@ function GameCard(props) {
     return(<span><FaHeart /> {my_fan_number}</span>);
   }
 
+  const hearthTitle = isFavorite ? "" : "Add this game to your favorites !";
+
   const [viewMore, setViewMore] = useState(false);
   const toggleDetails = (e) => {
     if (e.target !== e.currentTarget) {
@@ -108,11 +109,13 @@ function GameCard(props) {
   <h5>From <strong>{props.gameowner.nickname}</strong></h5>
   <h6 className="game-type" title={props.gametype.game_type_descr}>{props.gametype.game_type_title}</h6>
   <p>{props.game.game_descr}<span className="show-button" onClick={toggleDetails}>{linkName}</span></p>
-  <p>Best Score : <strong>{props.bestuser.nickname}</strong> {props.bestscore.score}</p>
-  <p>Last Score : <strong>{props.lastuser.nickname}</strong> {props.lastscore.score}</p>
-  <p>Best Scores : {props.fivebest}</p>
-  <p>Your Last Score : {props.userscore.score}</p>
-  <p> Your Best Score : {props.bestuserscore.score}</p>
+  <div className="scores">
+  <p className="score">Best Score : <strong>{props.bestuser.nickname}</strong> {props.bestscore.score}</p>
+  <p className="score">Last Score : <strong>{props.lastuser.nickname}</strong> {props.lastscore.score}</p>
+  <p className="score">Best Scores : {props.fivebest}</p>
+  <p className="score">Your Last Score : {props.userscore.score}</p>
+  <p className="score">Your Best Score : {props.bestuserscore.score}</p>
+  </div>
   </div>
   <div className="modal-footer game-card-footer">
   <div className="game-fan">{gameFansCounter(props.fans)}</div>

@@ -214,3 +214,16 @@
 .game-mobile-ready:hover .tooltiptext {
   visibility: visible;
 }
+
+.scores {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.score {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
