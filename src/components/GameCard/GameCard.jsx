@@ -1,4 +1,8 @@
 import { useState } from 'react';
+// import Cookies from 'js-cookie';
+// import { useAtom } from 'jotai';
+// import { authorizationAtom } from '../../stores/cookies';
+// import { API_URL } from '../../stores/api_url';
 import './GameCard.css';
 import { FaHeart, FaRegHeart, FaRegStar, FaStarHalf, FaStar, FaKeyboard, FaTabletAlt } from "react-icons/fa";
 
@@ -6,8 +10,34 @@ import { FaHeart, FaRegHeart, FaRegStar, FaStarHalf, FaStar, FaKeyboard, FaTable
 // Call by "<GameCard game={my_game_var} favorite={true / false} evaluation={0,1,2,3,4 ou 5} fans={my_number_of_fans} feedbacks={my_average_evaluation} />"
 function GameCard(props) {
 
-  const gameFavoriteIcon = (is_favorite) => {
-    let my_favorite_icon = is_favorite ? <span><FaHeart/></span> : <span><FaRegHeart/></span>;
+  // const [myAuthorization, setAuthorization] = useAtom(authorizationAtom);
+  const [isFavorite, setIsFavorite] = useState(props.favorite);
+  // const user = Cookies.get("fulluser") ? JSON.parse(Cookies.get("fulluser")) : "";
+
+  // const submitData = () => {
+
+  //   const data = {
+  //     "favorite": {
+  //       "game_type_id": props.gametype.id,
+  //       "game_id": props.game.id,
+  //       "user_id": user.id
+  //     }
+  //   };
+
+  //   fetch(`${API_URL}favorites`, {
+  //     method: 'post',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json',
+  //       'Authorization': myAuthorization
+  //     },
+  //     body: JSON.stringify(data)
+  //   })
+  //   .catch((error) => console.log(error));
+  // }
+
+  const gameFavoriteIcon = () => {
+    let my_favorite_icon = isFavorite ? <span><FaHeart/></span> : <span><FaRegHeart/></span>;
     return my_favorite_icon;
   }
 
@@ -69,47 +99,47 @@ function GameCard(props) {
 
   const showDetails =
   <div className="modal-bg" onClick={toggleDetails}>
-    <div className="game-card modal">
-      <img className="modal-img" src={imageLink} alt={"screenshot of "+props.game.game_title} alt={"screenshot of "+props.game.game_title}/>
-      <div className="modal-favorite">{gameFavoriteIcon(props.favorite)}</div>
-      <div className="modal-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
-      <div className="modal-body">
-        <h3><a href={props.game.game_url} target="_blank" rel="noreferrer">{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</a></h3>
-        <h5>From <strong>{props.gameowner.nickname}</strong></h5>
-        <h6 className="game-type" title={props.gametype.game_type_descr}>{props.gametype.game_type_title}</h6>
-        <p>{props.game.game_descr}<span className="show-button" onClick={toggleDetails}>{linkName}</span></p>
-        <p>Best Score : <strong>{props.bestuser.nickname}</strong> {props.bestscore.score}</p>
-        <p>Last Score : <strong>{props.lastuser.nickname}</strong> {props.lastscore.score}</p>
-        <p>Best Scores : {props.fivebest}</p>
-        <p>Your Last Score : {props.userscore.score}</p>
-        <p> Your Best Score : {props.bestuserscore.score}</p>
-      </div>
-      <div className="modal-footer game-card-footer">
-        <div className="game-fan">{gameFansCounter(props.fans)}</div>
-        <div className="game-mobile-ready">{gameMobileReadyIcon(props.game.mobile_ready)}<span className="tooltiptext">{mobileReadyText(props.game.mobile_ready)}</span></div>
-        <div className="game-evaluator">{gameFeedbackIcons(props.feedbacks)}</div>
-      </div>
-    </div>
-    </div>
+  <div className="game-card modal">
+  <img className="modal-img" src={imageLink} alt={"screenshot of "+props.game.game_title} alt={"screenshot of "+props.game.game_title}/>
+  <div className="modal-favorite" onClick={(e) => setIsFavorite(!isFavorite)}>{gameFavoriteIcon()}</div>
+  <div className="modal-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
+  <div className="modal-body">
+  <h3><a href={props.game.game_url} target="_blank" rel="noreferrer">{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</a></h3>
+  <h5>From <strong>{props.gameowner.nickname}</strong></h5>
+  <h6 className="game-type" title={props.gametype.game_type_descr}>{props.gametype.game_type_title}</h6>
+  <p>{props.game.game_descr}<span className="show-button" onClick={toggleDetails}>{linkName}</span></p>
+  <p>Best Score : <strong>{props.bestuser.nickname}</strong> {props.bestscore.score}</p>
+  <p>Last Score : <strong>{props.lastuser.nickname}</strong> {props.lastscore.score}</p>
+  <p>Best Scores : {props.fivebest}</p>
+  <p>Your Last Score : {props.userscore.score}</p>
+  <p> Your Best Score : {props.bestuserscore.score}</p>
+  </div>
+  <div className="modal-footer game-card-footer">
+  <div className="game-fan">{gameFansCounter(props.fans)}</div>
+  <div className="game-mobile-ready">{gameMobileReadyIcon(props.game.mobile_ready)}<span className="tooltiptext">{mobileReadyText(props.game.mobile_ready)}</span></div>
+  <div className="game-evaluator">{gameFeedbackIcons(props.feedbacks)}</div>
+  </div>
+  </div>
+  </div>
 
   return (
     <div className="game-card">
-      <div className="game-card-header">
-        <img className="game-card-img" src={imageLink} alt={"screenshot of "+props.game.game_title}/>
-        <div className="game-favorite">{gameFavoriteIcon(props.favorite)}</div>
-        <div className="game-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
-      </div>
-      <div className="game-card-body">
-        <h3>{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</h3>
-        <h6>{props.gametype.game_type_title}</h6>
-        <p>{props.game.game_descr.slice(0,99).normalize("NFD").replace(/[\u0300-\u036f]/g, "")}<span className="show-button" onClick={toggleDetails}>{linkName}</span></p>
-      </div>
-      <div className="game-card-footer">
-        <div className="game-fan">{gameFansCounter(props.fans)}</div>
-        <div className="game-mobile-ready" title={mobileReadyText(props.game.mobile_ready)}>{gameMobileReadyIcon(props.game.mobile_ready)}</div>
-        <div className="game-evaluator">{gameFeedbackIcons(props.feedbacks)}</div>
-      </div>
-      {viewMore && showDetails}
+    <div className="game-card-header">
+    <img className="game-card-img" src={imageLink} alt={"screenshot of "+props.game.game_title}/>
+    <div className="game-favorite">{gameFavoriteIcon(props.favorite)}</div>
+    <div className="game-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
+    </div>
+    <div className="game-card-body">
+    <h3>{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</h3>
+    <h6>{props.gametype.game_type_title}</h6>
+    <p>{props.game.game_descr.slice(0,99).normalize("NFD").replace(/[\u0300-\u036f]/g, "")}<span className="show-button" onClick={toggleDetails}>{linkName}</span></p>
+    </div>
+    <div className="game-card-footer">
+    <div className="game-fan">{gameFansCounter(props.fans)}</div>
+    <div className="game-mobile-ready" title={mobileReadyText(props.game.mobile_ready)}>{gameMobileReadyIcon(props.game.mobile_ready)}</div>
+    <div className="game-evaluator">{gameFeedbackIcons(props.feedbacks)}</div>
+    </div>
+    {viewMore && showDetails}
     </div>
     );
 }
