@@ -58,8 +58,7 @@ function GameCard(props) {
   }
 
   const rateGame = () => {
-    setUserRating(parseInt(prompt("Rate this game between 1 and 5 stars !")));
-    console.log(userRating)
+    parseInt(prompt("Rate this game between 1 and 5 stars !"));
   }
 
   const fiveBest = props.fivebest.map(i => {
@@ -136,7 +135,7 @@ function GameCard(props) {
     <div className="game-card modal">
       <img className="modal-img" src={imageLink} alt={"screenshot of " + props.game.game_title}/>
       <div className="modal-favorite" onClick={(e) => {setIsFavorite(!isFavorite); submitData();}} title={hearthTitle}>{gameFavoriteIcon()}</div>
-      <div className="modal-feedback" onClick={(e) => {rateGame(); submitRating();}} title="Rate this game !">{gameFeedbackIcons(userRating)}</div>
+      <div className="modal-feedback" onClick={(e) => {setUserRating(rateGame()); submitRating();}} title="Rate this game !">{gameFeedbackIcons(userRating)}</div>
       <div className="modal-body">
         <h3><a href={props.game.game_url} target="_blank" rel="noreferrer">{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</a></h3>
         <h5>From <strong>{props.gameowner.nickname}</strong></h5>
