@@ -152,7 +152,7 @@ const GamesIndex = () => {
         });
         let bestScore = sortedScores.at(-1) ? sortedScores.at(-1) : 0;
         let bestUser = bestScore ? usersList.find(user => user.id === bestScore.user_id) : 0;
-        let fiveBest = sortedScores.slice(-5).reverse().map(i => {return i.score}).join(' ');
+        let fiveBest = sortedScores.slice(-5);
         let userScores = scores.filter(score => score.user_id === user.id);
         let lastUserScore = userScores.at(-1) ? userScores.at(-1) : 0;
         let sortedUserScores = userScores.sort(function(a,b) {

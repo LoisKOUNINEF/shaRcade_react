@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import { authorizationAtom } from '../../stores/cookies';
 import { API_URL } from '../../stores/api_url';
 import './GameCard.css';
-import { FaHeart, FaRegHeart, FaRegStar, FaStarHalf, FaStar, FaKeyboard, FaTabletAlt } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaRegStar, FaStar, FaKeyboard, FaTabletAlt } from "react-icons/fa";
 
 // Displays 1 synthetic game card
 // Call by "<GameCard game={my_game_var} favorite={true / false} evaluation={0,1,2,3,4 ou 5} fans={my_number_of_fans} feedbacks={my_average_evaluation} />"
@@ -112,7 +112,7 @@ function GameCard(props) {
   <div className="scores">
   <p className="score">Best Score : <strong>{props.bestuser.nickname}</strong> {props.bestscore.score}</p>
   <p className="score">Last Score : <strong>{props.lastuser.nickname}</strong> {props.lastscore.score}</p>
-  <p className="score">Best Scores : {props.fivebest}</p>
+  <p className="score">Best Scores : {props.fivebest.map(i => {return i.score}).reverse().join(' ')}</p>
   <p className="score">Your Last Score : {props.userscore.score}</p>
   <p className="score">Your Best Score : {props.bestuserscore.score}</p>
   </div>
