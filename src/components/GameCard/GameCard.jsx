@@ -118,9 +118,9 @@ function GameCard(props) {
   <div className="scores">
   <p className="score">Best Score : <strong>{props.bestuser.nickname}</strong> {props.bestscore.score}</p>
   <p className="score">Last Score : <strong>{props.lastuser.nickname}</strong> {props.lastscore.score}</p>
-  <p className="score">Best Scores : {fiveBest}</p>
-  <p className="score">Your Last Score : {props.userscore.score}</p>
   <p className="score">Your Best Score : {props.bestuserscore.score}</p>
+  <p className="score">Your Last Score : {props.userscore.score}</p>
+  <p className="score">Best Scores : {fiveBest}</p>
   </div>
   </div>
   <div className="modal-footer game-card-footer">
