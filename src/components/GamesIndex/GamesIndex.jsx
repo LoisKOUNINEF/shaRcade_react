@@ -188,6 +188,7 @@ const GamesIndex = () => {
         bestuser={bestUser}
         userscore={lastUserScore}
         bestuserscore={bestUserScore}
+        userslist={usersList}
         key={game.id}
         />
     }).reverse();

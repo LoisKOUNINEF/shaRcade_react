@@ -35,6 +35,12 @@ function GameCard(props) {
     .catch((error) => console.log(error));
   }
 
+  const fiveBest = props.fivebest.map(i => {
+    let scorer = props.userslist.find(user => user.id === i.user_id);
+    let score = i.score;
+    return <span>{scorer.nickname} {score}</span>
+  }).reverse();
+
   const gameFavoriteIcon = () => {
     let my_favorite_icon = isFavorite ? <span><FaHeart/></span> : <span><FaRegHeart/></span>;
     return my_favorite_icon;
@@ -112,7 +118,7 @@ function GameCard(props) {
   <div className="scores">
   <p className="score">Best Score : <strong>{props.bestuser.nickname}</strong> {props.bestscore.score}</p>
   <p className="score">Last Score : <strong>{props.lastuser.nickname}</strong> {props.lastscore.score}</p>
-  <p className="score">Best Scores : {props.fivebest.map(i => {return i.score}).reverse().join(' ')}</p>
+  <p className="score">Best Scores : {fiveBest}</p>
   <p className="score">Your Last Score : {props.userscore.score}</p>
   <p className="score">Your Best Score : {props.bestuserscore.score}</p>
   </div>
