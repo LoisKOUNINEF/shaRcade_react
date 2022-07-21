@@ -183,6 +183,10 @@
   font-size: 2.5rem;
 }
 
+.modal-favorite:hover, .modal-feedback:hover {
+  cursor: pointer;
+}
+
 .modal-body {
   height: 40%;
   overflow: auto;
