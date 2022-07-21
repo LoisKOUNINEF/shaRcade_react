@@ -101,7 +101,7 @@ function GameCard(props) {
   const showDetails =
   <div className="modal-bg" onClick={toggleDetails}>
   <div className="game-card modal">
-  <img className="modal-img" src={imageLink} alt={"screenshot of "+props.game.game_title} alt={"screenshot of "+props.game.game_title}/>
+  <img className="modal-img" src={imageLink} alt={"screenshot of " + props.game.game_title}/>
   <div className="modal-favorite" onClick={(e) => {setIsFavorite(!isFavorite); submitData();}} title={hearthTitle}>{gameFavoriteIcon()}</div>
   <div className="modal-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
   <div className="modal-body">
@@ -128,7 +128,7 @@ function GameCard(props) {
   return (
     <div className="game-card">
     <div className="game-card-header">
-    <img className="game-card-img" src={imageLink} alt={"screenshot of "+props.game.game_title}/>
+    <img className="game-card-img" src={imageLink} alt={"screenshot of " + props.game.game_title}/>
     <div className="game-favorite">{gameFavoriteIcon(props.favorite)}</div>
     <div className="game-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
     </div>

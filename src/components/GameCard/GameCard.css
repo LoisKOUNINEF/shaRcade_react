@@ -223,7 +223,12 @@
 }
 
 .score {
-  width: 30%;
+  width: 40%;
   display: flex;
   flex-direction: column;
+  background-color: var(--sc-txt-color);
+  color: var(--sc-bg-color);
+  border-radius: var(--sc-radius);
+  margin: var(--sc-margin);
+  padding: var(--sc-margin);
 }
