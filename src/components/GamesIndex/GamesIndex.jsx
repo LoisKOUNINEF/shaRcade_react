@@ -186,6 +186,7 @@ const GamesIndex = () => {
         fivebest={fiveBest}
         bestscore={bestScore}
         bestuser={bestUser}
+        user={user}
         userscore={lastUserScore}
         bestuserscore={bestUserScore}
         userslist={usersList}

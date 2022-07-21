@@ -13,14 +13,13 @@ function GameCard(props) {
   const [myAuthorization, setAuthorization] = useAtom(authorizationAtom);
   const [isFavorite, setIsFavorite] = useState(props.favorite);
   const [userRating, setUserRating] = useState(props.evaluation.rating);
-  const user = Cookies.get("fulluser") ? JSON.parse(Cookies.get("fulluser")) : "";
 
   const submitData = () => {
 
     const data = {
       "favorite": {
         "game_id": props.game.id,
-        "user_id": user.id
+        "user_id": props.user.id
       }
     };
 
@@ -34,6 +33,33 @@ function GameCard(props) {
       body: JSON.stringify(data)
     })
     .catch((error) => console.log(error));
+  }
+
+  const submitRating = () => {
+    console.log(userRating)
+    const data = {
+      "feedback": {
+        "rating": userRating,
+        "game_id": props.game.id,
+        "user_id": props.user.id
+      }
+    };
+
+    fetch(`${API_URL}feedbacks`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': myAuthorization
+      },
+      body: JSON.stringify(data)
+    })
+    .catch((error) => console.log(error));
+  }
+
+  const rateGame = () => {
+    setUserRating(parseInt(prompt("Rate this game between 1 and 5 stars !")));
+    console.log(userRating)
   }
 
   const fiveBest = props.fivebest.map(i => {
@@ -63,22 +89,22 @@ function GameCard(props) {
 
   const gameFeedbackIcons = (my_avg_game_eval) => {
     // Returns ⭐ to ⭐⭐⭐⭐⭐ depending on current user evaluation of "props.game"
-    let my_feedback_icons = <span><FaRegStar onClick={(e) => setUserRating(1)}/><FaRegStar onClick={(e) => setUserRating(2)}/><FaRegStar onClick={(e) => setUserRating(3)}/><FaRegStar onClick={(e) => setUserRating(4)}/><FaRegStar onClick={(e) => setUserRating(5)}/></span>;
+    let my_feedback_icons = <span><FaRegStar/><FaRegStar/><FaRegStar/><FaRegStar/><FaRegStar/></span>;
     switch (my_avg_game_eval) {
       case 5:
-      my_feedback_icons = <span><FaStar onClick={(e) => setUserRating(1)}/><FaStar onClick={(e) => setUserRating(2)}/><FaStar onClick={(e) => setUserRating(3)}/><FaStar onClick={(e) => setUserRating(4)}/><FaStar/></span>;
+      my_feedback_icons = <span><FaStar/><FaStar/><FaStar/><FaStar/><FaStar/></span>;
       break;
       case 4:
-      my_feedback_icons = <span><FaStar onClick={(e) => setUserRating(1)}/><FaStar onClick={(e) => setUserRating(2)}/><FaStar onClick={(e) => setUserRating(3)}/><FaStar/><FaRegStar onClick={(e) => setUserRating(5)}/></span>;
+      my_feedback_icons = <span><FaStar/><FaStar/><FaStar/><FaStar/><FaRegStar/></span>;
       break;
       case 3:
-      my_feedback_icons = <span><FaStar onClick={(e) => setUserRating(1)}/><FaStar onClick={(e) => setUserRating(2)}/><FaStar/><FaRegStar onClick={(e) => setUserRating(4)}/><FaRegStar onClick={(e) => setUserRating(5)}/></span>;
+      my_feedback_icons = <span><FaStar/><FaStar/><FaStar/><FaRegStar/><FaRegStar/></span>;
       break;
       case 2:
-      my_feedback_icons = <span><FaStar onClick={(e) => setUserRating(1)}/><FaStar/><FaRegStar onClick={(e) => setUserRating(3)}/><FaRegStar onClick={(e) => setUserRating(4)}/><FaRegStar onClick={(e) => setUserRating(5)}/></span>;
+      my_feedback_icons = <span><FaStar/><FaStar/><FaRegStar/><FaRegStar/><FaRegStar/></span>;
       break;
       case 1:
-      my_feedback_icons = <span><FaStar/><FaRegStar onClick={(e) => setUserRating(2)}/><FaRegStar onClick={(e) => setUserRating(3)}/><FaRegStar onClick={(e) => setUserRating(4)}/><FaRegStar onClick={(e) => setUserRating(5)}/></span>;
+      my_feedback_icons = <span><FaStar/><FaRegStar/><FaRegStar/><FaRegStar/><FaRegStar/></span>;
       break;
       default:
         // Do nothing
@@ -110,7 +136,7 @@ function GameCard(props) {
     <div className="game-card modal">
       <img className="modal-img" src={imageLink} alt={"screenshot of " + props.game.game_title}/>
       <div className="modal-favorite" onClick={(e) => {setIsFavorite(!isFavorite); submitData();}} title={hearthTitle}>{gameFavoriteIcon()}</div>
-      <div className="modal-feedback">{gameFeedbackIcons(userRating)}</div>
+      <div className="modal-feedback" onClick={(e) => {rateGame(); submitRating();}} title="Rate this game !">{gameFeedbackIcons(userRating)}</div>
       <div className="modal-body">
         <h3><a href={props.game.game_url} target="_blank" rel="noreferrer">{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</a></h3>
         <h5>From <strong>{props.gameowner.nickname}</strong></h5>
@@ -137,7 +163,7 @@ function GameCard(props) {
       <div className="game-card-header">
         <img className="game-card-img" src={imageLink} alt={"screenshot of " + props.game.game_title}/>
         <div className="game-favorite">{gameFavoriteIcon(props.favorite)}</div>
-        <div className="game-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
+        <div className="game-feedback">{gameFeedbackIcons(userRating)}</div>
       </div>
       <div className="game-card-body">
         <h3>{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</h3>
