@@ -12,6 +12,7 @@ function GameCard(props) {
 
   const [myAuthorization, setAuthorization] = useAtom(authorizationAtom);
   const [isFavorite, setIsFavorite] = useState(props.favorite);
+  const [userRating, setUserRating] = useState(props.evaluation.rating);
   const user = Cookies.get("fulluser") ? JSON.parse(Cookies.get("fulluser")) : "";
 
   const submitData = () => {
@@ -62,22 +63,22 @@ function GameCard(props) {
 
   const gameFeedbackIcons = (my_avg_game_eval) => {
     // Returns ⭐ to ⭐⭐⭐⭐⭐ depending on current user evaluation of "props.game"
-    let my_feedback_icons = <span><FaRegStar/><FaRegStar/><FaRegStar/><FaRegStar/><FaRegStar/></span>;
+    let my_feedback_icons = <span><FaRegStar onClick={(e) => setUserRating(1)}/><FaRegStar onClick={(e) => setUserRating(2)}/><FaRegStar onClick={(e) => setUserRating(3)}/><FaRegStar onClick={(e) => setUserRating(4)}/><FaRegStar onClick={(e) => setUserRating(5)}/></span>;
     switch (my_avg_game_eval) {
       case 5:
-      my_feedback_icons = <span><FaStar/><FaStar/><FaStar/><FaStar/><FaStar/></span>;
+      my_feedback_icons = <span><FaStar onClick={(e) => setUserRating(1)}/><FaStar onClick={(e) => setUserRating(2)}/><FaStar onClick={(e) => setUserRating(3)}/><FaStar onClick={(e) => setUserRating(4)}/><FaStar/></span>;
       break;
       case 4:
-      my_feedback_icons = <span><FaStar/><FaStar/><FaStar/><FaStar/><FaRegStar/></span>;
+      my_feedback_icons = <span><FaStar onClick={(e) => setUserRating(1)}/><FaStar onClick={(e) => setUserRating(2)}/><FaStar onClick={(e) => setUserRating(3)}/><FaStar/><FaRegStar onClick={(e) => setUserRating(5)}/></span>;
       break;
       case 3:
-      my_feedback_icons = <span><FaStar/><FaStar/><FaStar/><FaRegStar/><FaRegStar/></span>;
+      my_feedback_icons = <span><FaStar onClick={(e) => setUserRating(1)}/><FaStar onClick={(e) => setUserRating(2)}/><FaStar/><FaRegStar onClick={(e) => setUserRating(4)}/><FaRegStar onClick={(e) => setUserRating(5)}/></span>;
       break;
       case 2:
-      my_feedback_icons = <span><FaStar/><FaStar/><FaRegStar/><FaRegStar/><FaRegStar/></span>;
+      my_feedback_icons = <span><FaStar onClick={(e) => setUserRating(1)}/><FaStar/><FaRegStar onClick={(e) => setUserRating(3)}/><FaRegStar onClick={(e) => setUserRating(4)}/><FaRegStar onClick={(e) => setUserRating(5)}/></span>;
       break;
       case 1:
-      my_feedback_icons = <span><FaStar/><FaRegStar/><FaRegStar/><FaRegStar/><FaRegStar/></span>;
+      my_feedback_icons = <span><FaStar/><FaRegStar onClick={(e) => setUserRating(2)}/><FaRegStar onClick={(e) => setUserRating(3)}/><FaRegStar onClick={(e) => setUserRating(4)}/><FaRegStar onClick={(e) => setUserRating(5)}/></span>;
       break;
       default:
         // Do nothing
@@ -109,7 +110,7 @@ function GameCard(props) {
     <div className="game-card modal">
       <img className="modal-img" src={imageLink} alt={"screenshot of " + props.game.game_title}/>
       <div className="modal-favorite" onClick={(e) => {setIsFavorite(!isFavorite); submitData();}} title={hearthTitle}>{gameFavoriteIcon()}</div>
-      <div className="modal-feedback">{gameFeedbackIcons(props.evaluation.rating)}</div>
+      <div className="modal-feedback">{gameFeedbackIcons(userRating)}</div>
       <div className="modal-body">
         <h3><a href={props.game.game_url} target="_blank" rel="noreferrer">{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</a></h3>
         <h5>From <strong>{props.gameowner.nickname}</strong></h5>
