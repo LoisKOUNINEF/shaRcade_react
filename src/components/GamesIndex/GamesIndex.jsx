@@ -14,7 +14,7 @@ const GamesIndex = () => {
     const [usersList, setUsersList] = useState([]);
 
     const [keysList, setKeysList] = useState([]);
-    const [keysLoading, setKeysLoading] = useState(true);
+    const [user, setUser] = useState()
 
     const [gamesLoading, setGamesLoading] = useState(true);
     const [gameTypesLoading, setGameTypesLoading] = useState(true);
@@ -22,8 +22,13 @@ const GamesIndex = () => {
     const [favoritesLoading, setFavoritesLoading] = useState(true);
     const [feedbacksLoading, setFeedbacksLoading] = useState(true);
     const [usersLoading, setUsersLoading] = useState(true);
+    const [keysLoading, setKeysLoading] = useState(true);
+    const [userLoading, setUserLoading] = useState(true);
 
-    const user = Cookies.get("fulluser") ? JSON.parse(Cookies.get("fulluser")) : "";
+    useEffect(() => {
+        setUser(Cookies.get("fulluser") ? JSON.parse(Cookies.get("fulluser")) : "");
+        setUserLoading(false);
+    }, [userLoading])
 
     useEffect(() => {
         fetch(`${API_URL}games`, {
@@ -196,7 +201,7 @@ const GamesIndex = () => {
 
     return (
         <div className="game-list">
-        {gamesLoading || gameTypesLoading || scoresLoading || favoritesLoading || feedbacksLoading || usersLoading ? <h2>"-- Games info loading --"</h2> : gameCards}
+        {gamesLoading || userLoading || gameTypesLoading || scoresLoading || favoritesLoading || feedbacksLoading || usersLoading ? <h2>"-- Games info loading --"</h2> : gameCards}
         </div>
         )
 }
