@@ -98,7 +98,7 @@ const NewGame = () => {
             <Form.Label className="label">{mobileReady ? "Your game can be played on touch devices." : "Your game can be played on a computer only."}</Form.Label>
             <div>{mobileReady ? <p className="mobile-btn">Computer Only</p> : <p className="mobile-btn">Mobile Ready</p>}</div>
           </Form.Group>
-          <p className="submit-btn" variant="primary" type="submit">Submit</p>
+          <p className="submit-btn" variant="primary" type="submit" onClick={submitData}>Submit</p>
         </Form>
       </div>
       );
