@@ -171,7 +171,7 @@ const GamesIndex = () => {
             return feedbacksRatings += feedback.rating;
         });
         let averageRating = Math.round(feedbacksRatings / feedbacksCount.length);
-        let userFeedback = feedbacksCount.find(feedback => feedback.user_id === user.id);
+        let userFeedback = feedbacksCount.filter(feedback => feedback.user_id === user.id).at(-1);
         let userEval = userFeedback ? userFeedback : 0;
 
         let favoritesCount = favorites.filter(favorite => favorite.game_id === game.id);
