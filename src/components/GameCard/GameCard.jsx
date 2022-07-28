@@ -126,7 +126,6 @@ function GameCard(props) {
   }
   const linkName = viewMore ? '...View Less << ' : '...View More >> ';
   const imageLink = require('../../assets/images/games/' + props.game.image_url) ? require('../../assets/images/games/' + props.game.image_url) : require('../../assets/images/games/default_game_screenshot.png');
-  const noScoreText = "None"
 
   const showDetails =
   <div className="modal-bg" onClick={toggleDetails}>
@@ -140,11 +139,11 @@ function GameCard(props) {
   <h6 className="game-type" title={props.gametype.game_type_descr}>{props.gametype.game_type_title}</h6>
   <p>{props.game.game_descr}<span className="show-button" onClick={toggleDetails}>{linkName}</span></p>
   <div className="scores">
-  <p className="score">Best Score : <strong>{props.bestuser.nickname ? props.bestuser.nickname : noScoreText}</strong> {props.bestscore.score}</p>
-  <p className="score">Last Score : <strong>{props.lastuser.nickname ? props.lastuser.nickname : noScoreText}</strong> {props.lastscore.score}</p>
-  <p className="score">Your Best Score : {props.bestuserscore.score ? props.bestuserscore.score : noScoreText}</p>
-  <p className="score">Your Last Score : {props.userscore.score ? props.userscore.score : noScoreText}</p>
-  <p className="score">Best Scores : {fiveBest}</p>
+  {props.bestuser && <p className="score">Best Score : <strong>{props.bestuser.nickname}</strong> {props.bestscore.score}</p>}
+  {props.lastuser && <p className="score">Last Score : <strong>{props.lastuser.nickname}</strong> {props.lastscore.score}</p>}
+  {props.bestuserscore && <p className="score">Your Best Score : {props.bestuserscore.score}</p>}
+  {props.userscore.score && <p className="score">Your Last Score : {props.userscore.score}</p>}
+  {fiveBest.length !== 0 && <p className="score">Best Scores : {fiveBest}</p>}
   </div>
   </div>
   <div className="modal-footer game-card-footer">
