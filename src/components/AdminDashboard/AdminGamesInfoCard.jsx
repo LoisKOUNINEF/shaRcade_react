@@ -85,7 +85,7 @@ const AdminGamesInfoCard = (props) => {
               <li>Title: {lastRegisteredGame.game_title}</li>
               <li>Registered: {lastRegisteredGame.created_at}</li>
               <li>Mobile Ready: {lastRegisteredGame.mobile_ready ? "yes" : "no"}</li>
-              <button onClick={() => submitData(lastRegisteredGame.id)}>Delete Game</button>
+              <button onClick={() => {submitData(lastRegisteredGame.id); window.location.reload();}}>Delete Game</button>
             </ul>
           </li>
         }
@@ -95,7 +95,7 @@ const AdminGamesInfoCard = (props) => {
               <li>Title: {gameChoice.game_title}</li>
               <li>Registered: {gameChoice.created_at}</li>
               <li>Mobile Ready: {gameChoice.mobile_ready ? "yes" : "no"}</li>
-              <button onClick={() => submitData(gameChoice.id)}>Delete Game</button>
+              <button onClick={() => {submitData(gameChoice.id); window.location.reload();}}>Delete Game</button>
             </ul>
           </li>}
           <button className="searchbtn" onClick={() => setGameChoice(findGameByName(props.gamesinfo))}>Search a game</button>

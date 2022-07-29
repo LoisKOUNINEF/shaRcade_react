@@ -65,6 +65,7 @@ const NewGame = () => {
         body: JSON.stringify(data)
       })
       .catch((error) => console.log(error));
+      window.location.reload();
     }
 
     return (
