@@ -23,11 +23,11 @@ const AdminGamesInfoCard = (props) => {
     })[0];
   }
 
-  function findGameById(my_games_tab) {
-    let choice = parseInt(prompt(`find a game from 1 to ${props.gamesinfo.length}`));
+  function findGameByName(my_games_tab) {
+    let choice = prompt(`find a game by title`).toLowerCase();
     if (choice) {
         setGameChosen(true);
-        return my_games_tab.find(game => game.id === choice);
+        return my_games_tab.find(game => game.game_title.toLowerCase() === choice) ? my_games_tab.find(game => game.game_title.toLowerCase() === choice) : "";
     }
     else {
       return
@@ -98,7 +98,7 @@ const AdminGamesInfoCard = (props) => {
               <button onClick={() => submitData(gameChoice.id)}>Delete Game</button>
             </ul>
           </li>}
-          <button className="searchbtn" onClick={() => setGameChoice(findGameById(props.gamesinfo))}>Search a game</button>
+          <button className="searchbtn" onClick={() => setGameChoice(findGameByName(props.gamesinfo))}>Search a game</button>
         </ul>
       </div>
       <div className="admin-info-card-footer">
