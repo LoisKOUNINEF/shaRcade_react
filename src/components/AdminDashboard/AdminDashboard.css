@@ -206,3 +206,13 @@
   font-size: smaller;
   font-weight:lighter
 }
+
+button {
+  background-color: var(--sc-bg-color);
+  color: var(--sc-txt-color);
+}
+
+button:hover {
+  background-color: var(--sc-txt-color);
+  color: var(--sc-bg-color);
+}
