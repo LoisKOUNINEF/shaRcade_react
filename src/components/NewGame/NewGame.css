@@ -55,6 +55,7 @@
 }
 
 .mobile-btn:hover{
+  cursor: pointer;
   background-color: var(--sc-txt-color) !important;
   border: 1px solid var(--sc-bg-color);
   color: var(--sc-bg-color);
