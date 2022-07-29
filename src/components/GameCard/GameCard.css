@@ -236,3 +236,14 @@
   margin: var(--sc-margin);
   padding: var(--sc-margin);
 }
+
+@media screen and (max-width: 960px) {
+
+  .game-card {
+    width: 100%;
+  }
+
+  .modal {
+    width: 100%;
+  }
+}
