@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie';
-import { API_URL } from '../../stores/api_url'
-import GameCard from '../GameCard/GameCard'
-import './GamesIndex.css'
+import { API_URL } from '../../stores/api_url';
+import GameCard from '../GameCard/GameCard';
+import './GamesIndex.css';
 
 const GamesIndex = () => {
 
@@ -14,7 +14,7 @@ const GamesIndex = () => {
     const [usersList, setUsersList] = useState([]);
 
     const [keysList, setKeysList] = useState([]);
-    const [user, setUser] = useState()
+    const [user, setUser] = useState([]);
 
     const [gamesLoading, setGamesLoading] = useState(true);
     const [gameTypesLoading, setGameTypesLoading] = useState(true);
@@ -28,7 +28,7 @@ const GamesIndex = () => {
     useEffect(() => {
         setUser(Cookies.get("fulluser") ? JSON.parse(Cookies.get("fulluser")) : "");
         setUserLoading(false);
-    }, [userLoading])
+    }, [userLoading]);
 
     useEffect(() => {
         fetch(`${API_URL}games`, {
@@ -146,8 +146,8 @@ const GamesIndex = () => {
     const gameCards = gameList.map(game => {
 
         let gameType = gameTypesList.find(gametype => gametype.id === game.game_type_id);
-        let key = keysList.find(key => key.game_id === game.id)
-        let gameOwner = usersList.find(user => user.id === key.user_id)
+        let key = keysList.find(key => key.game_id === game.id);
+        let gameOwner = key.user_id ? usersList.find(user => user.id === key.user_id) : "";
 
         let scores = scoresList.filter(score => score.game_id === game.id);
         let lastScore = scores.at(-1) ? scores.at(-1) : "";
