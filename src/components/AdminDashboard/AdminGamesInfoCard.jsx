@@ -10,7 +10,8 @@ const AdminGamesInfoCard = (props) => {
   const [lastRegisteredGame, setLastRegisteredGame] = useState([]);
   const [scoresPerGame, setScoresPerGame] = useState();
   const [feedbacksPerGame, setFeedbacksPerGame] = useState();
-  const [gameChoice, setGameChoice] = useState(0)
+  const [gameChoice, setGameChoice] = useState([]);
+  const [gameChosen, setGameChosen] = useState(false);
 
   function sortGamesByCreationDate(my_games_tab) {
     return my_games_tab.sort((a,b) => {
@@ -19,7 +20,13 @@ const AdminGamesInfoCard = (props) => {
       if (a.created_at > b.created_at)
         return -1;
       return 0;
-    })[gameChoice];
+    })[0];
+  }
+
+  function findGameById(my_games_tab) {
+    let choice = parseInt(prompt(`find a game from 1 to ${props.gamesinfo.length}`));
+    setGameChosen(true);
+    return my_games_tab.find(game => game.id === choice);
   }
 
   const computeScoresPerGameDistribution = (my_games, my_scores) => {
@@ -43,9 +50,9 @@ const AdminGamesInfoCard = (props) => {
     setFeedbacksPerGame(computeFeedbacksPerGameDistribution(props.gamesinfo, props.feedbacksinfo));
   }, [props.gamesinfo, props.scoresinfo, props.gametypesinfo, props.feedbacksinfo]);
 
-  const submitData = () => {
+  const submitData = (game_id) => {
 
-      fetch(`${API_URL}games/${lastRegisteredGame.id}`, {
+      fetch(`${API_URL}games/${game_id}`, {
         method: 'delete',
         headers: {
           'Content-Type': 'application/json',
@@ -67,14 +74,23 @@ const AdminGamesInfoCard = (props) => {
           <li>{gameTypesCount} {gameTypesCount > 1 ? "different game genres" : "game genre"}</li>
           <li>{scoresPerGame} {scoresPerGame > 1 ? "scores" : "score"} shared per game</li>
           <li>{feedbacksPerGame} {feedbacksPerGame > 1 ? "feedbacks" : "feedback"} given per game</li>
-          <button onClick={() => setGameChoice(parseInt(prompt(`find a game from 1 to ${props.gamesinfo.length}`)))}>Search a game</button>
+          <button onClick={() => setGameChoice(findGameById(props.gamesinfo))}>Search a game</button>
+          {gameChosen && <li>Game selected :
+            <ul>
+              <li>ID: {gameChoice.id}</li>
+              <li>Title: {gameChoice.game_title}</li>
+              <li>Registered: {gameChoice.created_at}</li>
+              <li>Mobile Ready: {gameChoice.mobile_ready ? "yes" : "no"}</li>
+              <button onClick={() => submitData(gameChoice.id)}>Delete Game</button>
+            </ul>
+          </li>}
           <li>Last game registered:
             <ul>
               <li>ID: {lastRegisteredGame.id}</li>
               <li>Title: {lastRegisteredGame.game_title}</li>
               <li>Registered: {lastRegisteredGame.created_at}</li>
               <li>Mobile Ready: {lastRegisteredGame.mobile_ready ? "yes" : "no"}</li>
-              <button onClick={() => submitData()}>Delete Game</button>
+              <button onClick={() => submitData(lastRegisteredGame.id)}>Delete Game</button>
             </ul>
           </li>
         </ul>
