@@ -208,11 +208,15 @@
 }
 
 button {
-  background-color: var(--sc-bg-color);
-  color: var(--sc-txt-color);
-}
-
-button:hover {
   background-color: var(--sc-txt-color);
   color: var(--sc-bg-color);
+  border-radius: var(--sc-radius);
+  box-shadow: var(--sc-card-shadow);
+}
+
+.searchbtn {
+  justify-self: center;
+  padding: var(--sc-margin);
+  margin: var(--sc-margin);
+  font-size: larger;
 }

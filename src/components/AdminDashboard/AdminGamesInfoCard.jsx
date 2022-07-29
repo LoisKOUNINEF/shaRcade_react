@@ -25,8 +25,13 @@ const AdminGamesInfoCard = (props) => {
 
   function findGameById(my_games_tab) {
     let choice = parseInt(prompt(`find a game from 1 to ${props.gamesinfo.length}`));
-    setGameChosen(true);
-    return my_games_tab.find(game => game.id === choice);
+    if (choice) {
+        setGameChosen(true);
+        return my_games_tab.find(game => game.id === choice);
+    }
+    else {
+      return
+    }
   }
 
   const computeScoresPerGameDistribution = (my_games, my_scores) => {
@@ -74,7 +79,16 @@ const AdminGamesInfoCard = (props) => {
           <li>{gameTypesCount} {gameTypesCount > 1 ? "different game genres" : "game genre"}</li>
           <li>{scoresPerGame} {scoresPerGame > 1 ? "scores" : "score"} shared per game</li>
           <li>{feedbacksPerGame} {feedbacksPerGame > 1 ? "feedbacks" : "feedback"} given per game</li>
-          <button onClick={() => setGameChoice(findGameById(props.gamesinfo))}>Search a game</button>
+          {!gameChosen && <li>Last game registered:
+            <ul>
+              <li>ID: {lastRegisteredGame.id}</li>
+              <li>Title: {lastRegisteredGame.game_title}</li>
+              <li>Registered: {lastRegisteredGame.created_at}</li>
+              <li>Mobile Ready: {lastRegisteredGame.mobile_ready ? "yes" : "no"}</li>
+              <button onClick={() => submitData(lastRegisteredGame.id)}>Delete Game</button>
+            </ul>
+          </li>
+        }
           {gameChosen && <li>Game selected :
             <ul>
               <li>ID: {gameChoice.id}</li>
@@ -84,15 +98,7 @@ const AdminGamesInfoCard = (props) => {
               <button onClick={() => submitData(gameChoice.id)}>Delete Game</button>
             </ul>
           </li>}
-          <li>Last game registered:
-            <ul>
-              <li>ID: {lastRegisteredGame.id}</li>
-              <li>Title: {lastRegisteredGame.game_title}</li>
-              <li>Registered: {lastRegisteredGame.created_at}</li>
-              <li>Mobile Ready: {lastRegisteredGame.mobile_ready ? "yes" : "no"}</li>
-              <button onClick={() => submitData(lastRegisteredGame.id)}>Delete Game</button>
-            </ul>
-          </li>
+          <button className="searchbtn" onClick={() => setGameChoice(findGameById(props.gamesinfo))}>Search a game</button>
         </ul>
       </div>
       <div className="admin-info-card-footer">
