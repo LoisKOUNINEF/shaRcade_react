@@ -146,7 +146,7 @@ const GamesIndex = () => {
     const gameCards = gameList.map(game => {
 
         let gameType = gameTypesList.find(gametype => gametype.id === game.game_type_id);
-        let key = keysList.find(key => key.game_id === game.id) ? keysList.find(key => key.game_id === game.id) : "";
+        let key = keysList.find(key => key.game_id === game.id);
         let gameOwner = key ? usersList.find(user => user.id === key.user_id) : "";
 
         let scores = scoresList.filter(score => score.game_id === game.id);
