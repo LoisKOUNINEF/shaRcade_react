@@ -8,7 +8,7 @@ export default function Slider() {
   const [gameList, setGameList] = useState([]);
 
   const numberImages = 5;
-  const lastGames = [...gameList].slice(numberImages);
+  const lastGames = [...gameList].slice(-numberImages);
   // const randomGames = [...gameList].sort(() => Math.random() - Math.random()).slice(0, numberImages);
 
     useEffect(() => {
