@@ -23,7 +23,18 @@ function GameCard(props) {
         }
       };
 
-      fetch(`${API_URL}favorites`, {
+      if (isFavorite){
+      fetch(`${API_URL}favorites/${props.favorite.id}`, {
+        method: 'delete',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      })
+      .catch((error) => console.log(error));
+  }
+  else {
+    fetch(`${API_URL}favorites`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -34,8 +45,10 @@ function GameCard(props) {
       })
       .catch((error) => console.log(error));
   }
+}
 
   const submitRating = () => {
+
     const rating = props.user.id ? parseInt(prompt("Rate this game between 1 and 5 stars !")) : alert("Please register first !");
     setUserRating(rating);
     const data = {
@@ -45,17 +58,30 @@ function GameCard(props) {
         "user_id": props.user.id
       }
     };
-
-    fetch(`${API_URL}feedbacks`, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': myAuthorization
-      },
-      body: JSON.stringify(data)
-    })
-    .catch((error) => console.log(error));
+    if (props.evaluation.rating) {
+      fetch(`${API_URL}feedbacks/${props.evaluation.id}`, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': myAuthorization
+        },
+        body: JSON.stringify(data)
+      })
+      .catch((error) => console.log(error));
+    }
+    else {
+      fetch(`${API_URL}feedbacks`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': myAuthorization
+        },
+        body: JSON.stringify(data)
+      })
+      .catch((error) => console.log(error));
+    }
   }
 
   const fiveBest = props.fivebest.map(i => {

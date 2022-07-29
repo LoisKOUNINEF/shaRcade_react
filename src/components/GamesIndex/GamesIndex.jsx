@@ -176,14 +176,13 @@ const GamesIndex = () => {
 
         let favoritesCount = favorites.filter(favorite => favorite.game_id === game.id);
         let userFavorite = favoritesCount.find(favorite => favorite.user_id === user.id);
-        let isFavorite = userFavorite ? true : false;
 
         return <GameCard
         game={game}
         gameowner={gameOwner}
         fans={favoritesCount.length}
         feedbacks={averageRating}
-        favorite={isFavorite}
+        favorite={userFavorite}
         evaluation={userEval}
         gametype={gameType}
         lastscore={lastScore}
