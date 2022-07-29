@@ -44,3 +44,14 @@
   border: 1px solid var(--sc-txt-color);
   color: var(--sc-txt-color);
 }
+
+a {
+  text-decoration: none;
+  color: var(--sc-txt-color);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--sc-txt-color);
+  font-weight: normal;
+}
