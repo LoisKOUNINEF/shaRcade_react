@@ -161,7 +161,7 @@ function GameCard(props) {
   <div className="modal-favorite" onClick={(e) => submitFavorite()} title={hearthTitle}>{gameFavoriteIcon()}</div>
   <div className="modal-feedback" onClick={(e) => submitRating()} title="Rate this game !">{gameFeedbackIcons(userRating)}</div>
   <div className="modal-body">
-  <h3><a href={props.game.game_url} target="_blank" rel="noreferrer">{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</a></h3>
+  <h3><a href={props.user.id ? props.game.game_url : "/signup"} target="_blank" rel="noreferrer">{props.game.game_title.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</a></h3>
   <h5>From <strong>{props.gameowner.nickname}</strong></h5>
   <h6 className="game-type" title={props.gametype.game_type_descr}>{props.gametype.game_type_title}</h6>
   <p>{props.game.game_descr}<span className="show-button" onClick={toggleDetails}>{linkName}</span></p>
