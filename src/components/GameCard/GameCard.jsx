@@ -13,9 +13,10 @@ function GameCard(props) {
   const [myAuthorization, setAuthorization] = useAtom(authorizationAtom);
   const [isFavorite, setIsFavorite] = useState(props.favorite);
   const [userRating, setUserRating] = useState(props.evaluation.rating);
+  const noLoginMsg = "Please login or register first !"
 
   const submitFavorite = () => {
-    props.user.id ? setIsFavorite(!isFavorite) : alert("Please register first !");
+    props.user.id ? setIsFavorite(!isFavorite) : alert(noLoginMsg);
       const data = {
         "favorite": {
           "game_id": props.game.id,
@@ -49,7 +50,7 @@ function GameCard(props) {
 
   const submitRating = () => {
 
-    const rating = props.user.id ? parseInt(prompt("Rate this game between 1 and 5 stars !")) : alert("Please register first !");
+    const rating = props.user.id ? parseInt(prompt("Rate this game between 1 and 5 stars !")) : alert(noLoginMsg);
     setUserRating(rating);
     const data = {
       "feedback": {
