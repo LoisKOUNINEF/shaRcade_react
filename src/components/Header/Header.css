@@ -23,23 +23,8 @@
     color: var(--sc-txt-color) !important;
 }
 
-.search-block-centering {
-    margin-right: 10rem;
-}
-
-.search-btn {
-    background-color: var(--sc-bg-color);
-    color: var(--sc-txt-color);
-    opacity: .5;
-}
-
-.search-btn:hover {
-    background-color: var(--sc-txt-color);
-    color: var(--sc-bg-color);
-    opacity: 1;
-}
-
-a:hover {
+.me-auto a:hover {
+  text-decoration: none;
   font-weight: bolder;
   transition: 0.3s ease-out;
 }

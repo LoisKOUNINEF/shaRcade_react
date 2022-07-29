@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { useAtom } from 'jotai';
 import { userAtom } from '../../stores/cookies';
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
-import LogoTopDelireMegaGroove from '../../assets/images/logo/logo.png'
+import Logo from '../../assets/images/logo/logo.png'
 import './Header.css';
 
 const Header = () => {
@@ -71,24 +71,14 @@ const Header = () => {
             <Navbar>
                 <Container>
                     <Navbar.Brand href="/">
-                        <img className="header-logo" alt='ShaRcade logo' src={LogoTopDelireMegaGroove} />
+                        <img className="header-logo" alt='ShaRcade logo' src={Logo} />
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/games">Games</Nav.Link>
-                            <Nav.Link href="/about">About</Nav.Link>
-                            <Nav.Link href="/contact">Contact</Nav.Link>
+                            <Nav.Link href="/about">How to</Nav.Link>
                         </Nav>
-                        <Form className="d-flex search-block-centering">
-                            <FormControl
-                                type="search"
-                                placeholder="Search"
-                                className="me-2"
-                                aria-label="Search"
-                            />
-                            <Button className="search-btn" variant="outline-success">Search</Button>
-                        </Form>
                         <Nav>
                             {selectedDropDown}
                         </Nav>
