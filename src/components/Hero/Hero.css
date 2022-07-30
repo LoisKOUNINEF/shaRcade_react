@@ -16,7 +16,23 @@
 }
 
 .hero-container a:hover {
+  text-decoration: none;
   border-radius: var(--sc-radius);
   background-color: var(--sc-txt-color);
   color: var(--sc-bg-color);
+}
+
+.hero-txt {
+  display: flex;
+  justify-content: space-between;
+  font-size: large;
+  font-style: italic;
+}
+
+.hero-txt-left {
+  margin-left: var(--sc-margin);
+}
+
+.hero-txt-right {
+  margin-right: var(--sc-margin);
 }
