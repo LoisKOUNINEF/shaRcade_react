@@ -49,13 +49,12 @@ export default function Slider() {
   }
 
   const Images = lastGames.map((game, index) => {
-    const imageLink = require('../../assets/images/games/' + game.image_url) ? require('../../assets/images/games/' + game.image_url) : require('../../assets/images/games/default_game_screenshot.png');
     return (
       <div
       key={game.id}
       className={slideIndex === index + 1 ? "slide active-anim" : "slide"}
       >
-        <img src={imageLink} alt={game.name}/>
+        <img src={game.image_url} alt={game.name}/>
       </div>
       )
   })

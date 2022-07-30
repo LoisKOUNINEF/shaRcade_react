@@ -152,12 +152,11 @@ function GameCard(props) {
     setViewMore(!viewMore);
   }
   const linkName = viewMore ? '...View Less << ' : '...View More >> ';
-  const imageLink = require('../../assets/images/games/' + props.game.image_url) ? require('../../assets/images/games/' + props.game.image_url) : require('../../assets/images/games/default_game_screenshot.png');
 
   const showDetails =
   <div className="modal-bg" onClick={toggleDetails}>
   <div className="game-card modal">
-  <img className="modal-img" src={imageLink} alt={"screenshot of " + props.game.game_title}/>
+  <img className="modal-img" src={props.game.image_url} alt={"screenshot of " + props.game.game_title}/>
   <div className="modal-favorite" onClick={(e) => submitFavorite()} title={hearthTitle}>{gameFavoriteIcon()}</div>
   <div className="modal-feedback" onClick={(e) => submitRating()} title="Rate this game !">{gameFeedbackIcons(userRating)}</div>
   <div className="modal-body">
@@ -184,7 +183,7 @@ function GameCard(props) {
   return (
     <div className="game-card">
     <div className="game-card-header">
-    <img className="game-card-img" src={imageLink} alt={"screenshot of " + props.game.game_title}/>
+    <img className="game-card-img" src={props.game.image_url} alt={"screenshot of " + props.game.game_title}/>
     <div className="game-favorite">{gameFavoriteIcon(props.favorite)}</div>
     <div className="game-feedback">{gameFeedbackIcons(userRating)}</div>
     </div>
