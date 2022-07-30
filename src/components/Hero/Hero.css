@@ -2,6 +2,7 @@
   color: var(--sc-txt-color); 
   margin-bottom: var(--sc-margin);
   cursor: default;
+  text-align: center;
 }
 
 .hero-container h1 {

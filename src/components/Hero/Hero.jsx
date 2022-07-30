@@ -4,9 +4,11 @@ import './Hero.css';
 const Hero = () => {
     return (
         <section className='hero-container retro'>
-            <h1 className="App">Just shaRcade it!</h1>
-            <p className="App">For now, only <a href="https://loiskouninef.github.io/Snake_JSVanilla/">snaKouninef</a> is playable and linked to shaRcade. Try it out !</p>
-            <p className="App"><small><a href="https://loiskouninef.github.io/Tetris_React">Tetrois</a> is playable too, not shaRcade ready though.</small></p>
+            <h1>Just <a href="/signup">shaRcade</a> it!</h1>
+            <p>Enjoy <strong>coding</strong> browser games ?</p>
+            <p>shaRcade is the place to Share'em all !</p>
+            <p>Enjoy <strong>playing</strong> browser games ?</p>
+            <p>shaRcade is the place to Find'em all !</p>
         </section>
     )
 }
