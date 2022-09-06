@@ -6,6 +6,7 @@ import BtnSlider from './BtnSlider';
 export default function Slider() {
   const [slideIndex, setSlideIndex] = useState(1);
   const [gameList, setGameList] = useState([]);
+  const [gamesLoading, setGamesLoading] = useState(true)
 
   const numberImages = 5;
   const lastGames = [...gameList].slice(-numberImages);
@@ -22,9 +23,10 @@ export default function Slider() {
     .then((response) => response.json())
     .then((response) => {
       setGameList(response);
+      setGamesLoading(response.length <= 0);
     })
     .catch((error) => console.log(error));
-  }, [])
+  }, [gamesLoading])
 
   const nextSlide = () => {
     if (slideIndex !== numberImages) {
@@ -61,7 +63,8 @@ export default function Slider() {
 
   return (
     <div className="container-slider">
-      {Images}
+      {gamesLoading ? <h2>"-- Games info loading --"</h2>
+      : Images}
       <div className="slider-elements-container">
         <div className="slider-elements">
           <BtnSlider moveSlide={nextSlide} direction={"next"} />
